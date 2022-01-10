@@ -9,6 +9,7 @@ class HomePage extends StatefulWidget {
 
 class _Contador extends State<HomePage> {
   int contador = 0;
+  TextEditingController cont_text = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +29,15 @@ class _Contador extends State<HomePage> {
               '$contador',
               style: TextStyle(fontSize: 30),
             ),
-            const TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Password',
-            
-              ),
-            )
+            TextField(
+              controller: cont_text,
+                decoration: const InputDecoration(
+                  hintText: 'Número de clicks',
+                  contentPadding: const EdgeInsets.all(10.0),
+                
+                ),
+                
+                ),
           ],
         ),
       ),
@@ -61,14 +63,20 @@ class _Contador extends State<HomePage> {
   }
 
   void aumentar() {
-    setState(() => {contador++});
+    
+    setState(() => {
+      contador++,
+      cont_text.text= contador.toString()});
+    
   }
 
   void disminuir() {
     setState(() => {contador--});
+    cont_text.text= contador.toString();
   }
 
   void cero() {
     setState(() => {contador = 0});
+    cont_text.text= '0';
   }
 }
