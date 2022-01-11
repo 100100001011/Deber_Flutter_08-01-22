@@ -1,3 +1,4 @@
+import 'package:click_app/bloc/bloc_1.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,39 +10,49 @@ class HomePage extends StatefulWidget {
 
 class _Contador extends State<HomePage> {
   int contador = 0;
-  //TextEditingController cont_text = TextEditingController();
+  Bloc_1 obj_bloc = Bloc_1();
+  
+  
+  TextEditingController cont_text = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('App de conteo'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Número de clicks',
-              style: TextStyle(fontSize: 28),
-            ),
-            Text(
-              '$contador',
-              style: TextStyle(fontSize: 30),
-            ),
-            TextField(
-              //controller: cont_text,
-                decoration: const InputDecoration(
-                  hintText: 'Número de clicks',
-                  contentPadding: const EdgeInsets.all(10.0),
-                
+    return StreamBuilder<int>(
+      stream: obj_bloc.sale_Stream,
+      initialData: 0,
+      builder: (context, snapshot) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('App de conteo'),
+          ),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Número de clicks',
+                  style: TextStyle(fontSize: 28),
                 ),
-                
+                Text(
+                  //'$contador',
+                  '${snapshot.data}',
+                  style: TextStyle(fontSize: 30),
                 ),
-          ],
-        ),
-      ),
-      floatingActionButton: _botones(),
+                TextField(
+                  controller: cont_text,
+                    decoration: const InputDecoration(
+                      hintText: 'Número de clicks',
+                      contentPadding: const EdgeInsets.all(10.0),
+                    
+                    ),
+                    
+                    ),
+              ],
+            ),
+          ),
+          floatingActionButton: _botones(),
+        );
+      }
     );
   }
 
@@ -62,24 +73,33 @@ class _Contador extends State<HomePage> {
     );
   }
 
+  void dispose(){
+    obj_bloc.dispose();
+  }
+
   void aumentar() {
     
     setState(() => {
-      contador++,
+      //contador++,
       //cont_text.text= contador.toString()
+      obj_bloc.ingresa_Stream.add(IncrementaContador())
       });
     
   }
 
   void disminuir() {
-    setState(() => {contador--,
+    setState(() => {
+      //contador--,
     //cont_text.text= contador.toString()
+    obj_bloc.ingresa_Stream.add(ReducirContador())
     });
     
   }
 
   void cero() {
-    setState(() => {contador = 0,
+    setState(() => {
+      obj_bloc.ingresa_Stream.add(EncerarContador())
+      //contador = 0,
     //cont_text.text= '0'
     });
     

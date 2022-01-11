@@ -24,30 +24,15 @@ class Bloc_1{
   StreamController<ContadorBase> _entrada = StreamController();
   StreamController<int> _salida = StreamController();
   
-  
-  //GET
-  //Stream<int> get contadorStream => this._salida.stream;
-  //SALIDA
-  Stream<int> get salida_Stream{
-    return this._salida.stream;
-  }
-
-  //ENTRADA
-
-  StreamSink<ContadorBase> get entrada_Stream{
-    return this._entrada.sink;
-  }
-
-
-  //>>>>>>>CONSTRUCTOR>>>>>
+    //>>>>>>>CONSTRUCTOR>>>>>
   Bloc_1(){
     //ESCUCHA
     //objeto evento escuchar lo que el metodo hace
-    this._entrada.stream.listen(proceso);
+    this._entrada.stream.listen(this.__proceso);
 
   }
   //>>>>>>>METODOS>>>>>
-  void proceso(ContadorBase evento){
+  void __proceso(ContadorBase evento){
     //Si el evento es de tipo incrementa
     if(evento is IncrementaContador){
       this._contador ++;
@@ -58,6 +43,19 @@ class Bloc_1{
     }
     this._salida.add(this._contador);
   }
+
+
+  //>>>>>>>GET>>>>>>>>
+  //Stream<int> get contadorStream => this._salida.stream;
+  //SALIDA
+  Stream<int> get sale_Stream{
+    return this._salida.stream;
+  }
+  //ENTRADA
+  StreamSink<ContadorBase> get ingresa_Stream{
+    return this._entrada.sink;
+  }
+
 
   //cierre los stream
   void dispose(){
