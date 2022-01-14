@@ -10,7 +10,7 @@ class HomePage extends StatefulWidget {
 
 class _Contador extends State<HomePage> {
   int contador = 0;
-  Bloc_1 obj_bloc = Bloc_1();
+  //Bloc_1 obj_bloc = Bloc_1();
 
   TextEditingController cont_text = TextEditingController();
 
@@ -26,22 +26,25 @@ class _Contador extends State<HomePage> {
             ),
             body: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Text(
                     'Número de clicks',
                     style: TextStyle(fontSize: 28),
                   ),
+                  /*
                   Text(
                     '$contador',
                     //'${snapshot.data}',
                     style: TextStyle(fontSize: 30),
-                  ),
+                  ),*/
                   TextField(
                     controller: cont_text,
-                    decoration: const InputDecoration(
-                      hintText: 'Número de clicks',
-                      contentPadding: const EdgeInsets.all(10.0),
+                    //obscureText: true,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Clics',
+                      prefixIcon: Icon(Icons.add)
                     ),
                   ),
                 ],
@@ -70,7 +73,7 @@ class _Contador extends State<HomePage> {
   }
 
   void dispose() {
-    obj_bloc.dispose();
+    //obj_bloc.dispose();
   }
 
   void aumentar() {
