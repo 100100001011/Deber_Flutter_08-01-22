@@ -26,7 +26,7 @@ class _Contador extends State<HomePage> {
             ),
             body: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
                     'Número de clicks',
